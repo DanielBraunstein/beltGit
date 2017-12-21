@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login and Registration</title>
+    <link rel="stylesheet" type="text/css" href="../../static/beltApp/style.css">
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h1>Login and Registration</h1>
+    {% if messages %}
+    <div class="errors">
+        {% for error in messages %}
+        <p>{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <form action='/register' method='POST'>
+        {% csrf_token %}
+        <label class="inputBox" for="name">Name (full):
+            <input type="text" name="name" id="name">
+        </label>
+        <label class="inputBox" for="alias">Alias:
+            <input type="text" name="alias" id="alias">
+        </label>
+        <label class="inputBox" for="email">email:
+            <input type="email" name="email" id="email">
+        </label>
+        <label class="inputBox" for="birthday">Date of Birth:
+            <input type="date" name="birthday" id="birthday">
+        </label>
+        <label class="inputBox" for="password">password:
+            <input type="password" name="password" id="password">
+        </label>
+        <label class="inputBox" for="confpassword">confirm password:
+            <input type="password" name="confpassword" id="confpassword">
+        </label>
+        <div class="inputBox" id="submitter">
+           <input type="submit" value="Register">
+        </div>
+    </form>
+    <form action='/login' method='POST'>
+        {% csrf_token %}
+        <label class="inputBox" for="email">email:
+            <input type="email" name="email" id="email">
+        </label>
+        <label class="inputBox" for="password">password:
+            <input type="password" name="password" id="password">
+        </label>
+        <div class="inputBox" id="submitter">
+            <input type="submit" value="Log On">
+        </div>
+    </form>
+</body>
+
+</html>

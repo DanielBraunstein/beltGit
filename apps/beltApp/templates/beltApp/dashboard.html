@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>user info</title>
+    <link rel="stylesheet" type="text/css" href="../../static/beltApp/style.css">
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <div>
+        <a href="/logout">logout</a>
+    </div>
+    <h1> Hello {{user_context.alias}}</h1>
+    <hr>
+    <div>
+        <h2>Friends</h2>
+        {%if user_context.friends.all.count > 0%}
+        <table>
+            <tr>
+                <th>Alias</th>
+                <th>Actions</th>    
+            </tr>
+            {%for compadre in user_context.friends.all%}
+            <tr>
+                <td>{{compadre.alias}}</td>
+                <td><a href="/user/{{compadre.id}}">profile</a>  |  <a href="/dislike/{{compadre.id}}">remove friend?</a></td>
+            </tr>
+            {%endfor%}
+        </table>
+        {%endif%}
+    </div>
+    <hr>
+    <div>
+        <h2>Other Users</h2>
+        <table>
+            <tr>
+                <th>Alias</th>
+                <th>Action</th>    
+            </tr>
+        {%for stranger in otherUsers %}
+        <!-- The following line excludes the user from being included on the Other Users table
+        This, along with some safeties in the views, prevents the user from friending themselves -->
+            {%if stranger.id != user_context.id %}
+                <tr>
+                    <td>{{stranger.alias}}</td>
+                    <td><a href="/user/{{stranger.id}}">profile</a>  |  <a href="/like/{{stranger.id}}">add friend?</a></td>
+                </tr>
+            {%endif%}
+        {%endfor%}
+        </table>        
+    </div>
+
+</body>
+
+</html>
